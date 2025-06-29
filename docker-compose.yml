@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    container_name: university-crm-backend
+    restart: unless-stopped
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=development
+      - DB_HOST=postgres
+      - DB_PORT=5433
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=password
+      - DB_NAME=university_crm
+      - JWT_SECRET=your-secret-key-change-in-production
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+      - uploads:/usr/src/app/uploads
+    depends_on:
+      - postgres
+    command: npm run start:dev
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: university-crm-db
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=university_crm
+    ports:
+      - '5433:5433'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    container_name: university-crm-redis
+    restart: unless-stopped
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis_data:/data
+
+volumes:
+  postgres_data:
+  redis_data:
+  uploads:
