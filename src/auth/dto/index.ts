@@ -2,9 +2,9 @@ import { IsEmail, IsString, MinLength, IsEnum } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export enum UserRole {
-  STUDENT = 'student',
-  LECTURER = 'lecturer',
-  ADMIN = 'admin',
+  student = 'student',
+  lecturer = 'lecturer',
+  admin = 'admin',
 }
 
 export class RegisterDto {

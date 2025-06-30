@@ -16,14 +16,14 @@ export class AiController {
 
   @Post('recommend')
   @UseGuards(RolesGuard)
-  @Roles(UserRole.STUDENT)
+  @Roles(UserRole.student)
   recommendCourses(@Body() recommendDto: RecommendCoursesDto, @Request() req) {
     return this.aiService.recommendCourses(recommendDto, req.user);
   }
 
   @Post('syllabus')
   @UseGuards(RolesGuard)
-  @Roles(UserRole.LECTURER, UserRole.ADMIN)
+  @Roles(UserRole.lecturer, UserRole.admin)
   generateSyllabus(@Body() syllabusDto: GenerateSyllabusDto) {
     return this.aiService.generateSyllabus(syllabusDto);
   }

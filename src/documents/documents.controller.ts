@@ -88,7 +88,7 @@ export class DocumentsController {
   }
   @Post('generate-transcript')
   @UseGuards(RolesGuard)
-  @Roles(UserRole.ADMIN)
+  @Roles(UserRole.admin)
   async generateTranscript(
     @Body() generateTranscriptDto: GenerateTranscriptDto,
   ): Promise<{ filename: string; message: string }> {

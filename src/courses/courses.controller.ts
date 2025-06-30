@@ -30,7 +30,7 @@ export class CoursesController {
 
   @Post()
   @UseGuards(RolesGuard)
-  @Roles(UserRole.LECTURER, UserRole.ADMIN)
+  @Roles(UserRole.lecturer, UserRole.admin)
   create(@Body() createCourseDto: CreateCourseDto, @Request() req) {
     return this.coursesService.create(createCourseDto, req.user);
   }
@@ -47,7 +47,7 @@ export class CoursesController {
 
   @Patch(':id')
   @UseGuards(RolesGuard)
-  @Roles(UserRole.LECTURER, UserRole.ADMIN)
+  @Roles(UserRole.lecturer, UserRole.admin)
   update(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateCourseDto: UpdateCourseDto,
@@ -58,14 +58,14 @@ export class CoursesController {
 
   @Delete(':id')
   @UseGuards(RolesGuard)
-  @Roles(UserRole.LECTURER, UserRole.ADMIN)
+  @Roles(UserRole.lecturer, UserRole.admin)
   remove(@Param('id', ParseIntPipe) id: number, @Request() req) {
     return this.coursesService.remove(id, req.user);
   }
 
   @Post(':id/syllabus')
   @UseGuards(RolesGuard)
-  @Roles(UserRole.LECTURER, UserRole.ADMIN)
+  @Roles(UserRole.lecturer, UserRole.admin)
   @UseInterceptors(FileInterceptor('file'))
   @ApiConsumes('multipart/form-data')
   @ApiBody({

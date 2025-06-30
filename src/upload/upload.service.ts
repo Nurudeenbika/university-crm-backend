@@ -8,7 +8,10 @@ export class UploadService {
   constructor(private configService: ConfigService) {}
 
   getFileUrl(filename: string): string {
-    const baseUrl = this.configService.get('BASE_URL', 'http://localhost:3000');
+    const baseUrl = this.configService.get<string>(
+      'BASE_URL',
+      'http://localhost:3000',
+    );
     return `${baseUrl}/uploads/${filename}`;
   }
 
@@ -19,7 +22,7 @@ export class UploadService {
     }
   }
 
-  async saveFile(file: Express.Multer.File): Promise<string> {
+  saveFile(file: Express.Multer.File): string {
     return file.filename;
   }
 }

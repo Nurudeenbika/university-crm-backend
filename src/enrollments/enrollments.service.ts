@@ -86,7 +86,7 @@ export class EnrollmentsService {
       throw new NotFoundException('Enrollment not found');
     }
 
-    if (user.role !== UserRole.ADMIN) {
+    if (user.role !== UserRole.admin) {
       throw new ForbiddenException('Only admins can update enrollment status');
     }
 

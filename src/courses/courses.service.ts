@@ -51,7 +51,7 @@ export class CoursesService {
   ): Promise<Course> {
     const course = await this.findOne(id);
 
-    if (user.role !== UserRole.ADMIN && course.lecturerId !== user.id) {
+    if (user.role !== UserRole.admin && course.lecturerId !== user.id) {
       throw new ForbiddenException('You can only update your own courses');
     }
 
@@ -62,7 +62,7 @@ export class CoursesService {
   async remove(id: number, user: User): Promise<void> {
     const course = await this.findOne(id);
 
-    if (user.role !== UserRole.ADMIN && course.lecturerId !== user.id) {
+    if (user.role !== UserRole.admin && course.lecturerId !== user.id) {
       throw new ForbiddenException('You can only delete your own courses');
     }
 
@@ -76,7 +76,7 @@ export class CoursesService {
   ): Promise<Course> {
     const course = await this.findOne(id);
 
-    if (user.role !== UserRole.ADMIN && course.lecturerId !== user.id) {
+    if (user.role !== UserRole.admin && course.lecturerId !== user.id) {
       throw new ForbiddenException(
         'You can only upload syllabus to your own courses',
       );

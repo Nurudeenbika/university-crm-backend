@@ -22,21 +22,21 @@ export async function seedDefaultUsers(dataSource: DataSource): Promise<void> {
       password: await bcrypt.hash('admin123', 10),
       firstName: 'System',
       lastName: 'Administrator',
-      role: UserRole.ADMIN,
+      role: UserRole.admin,
     },
     {
       email: 'lecturer@university.edu',
       password: await bcrypt.hash('lecturer123', 10),
       firstName: 'John',
       lastName: 'Lecturer',
-      role: UserRole.LECTURER,
+      role: UserRole.lecturer,
     },
     {
       email: 'student@university.edu',
       password: await bcrypt.hash('student123', 10),
       firstName: 'Jane',
       lastName: 'Student',
-      role: UserRole.STUDENT,
+      role: UserRole.student,
     },
   ];
 

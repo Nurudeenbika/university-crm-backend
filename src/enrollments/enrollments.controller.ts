@@ -27,28 +27,28 @@ export class EnrollmentsController {
 
   @Post('enroll')
   @UseGuards(RolesGuard)
-  @Roles(UserRole.STUDENT)
+  @Roles(UserRole.student)
   enroll(@Body() createEnrollmentDto: CreateEnrollmentDto, @Request() req) {
     return this.enrollmentsService.enroll(createEnrollmentDto, req.user);
   }
 
   @Get()
   @UseGuards(RolesGuard)
-  @Roles(UserRole.ADMIN)
+  @Roles(UserRole.admin)
   findAll() {
     return this.enrollmentsService.findAll();
   }
 
   @Get('my-enrollments')
   @UseGuards(RolesGuard)
-  @Roles(UserRole.STUDENT)
+  @Roles(UserRole.student)
   findMyEnrollments(@Request() req) {
     return this.enrollmentsService.findByStudent(req.user.id);
   }
 
   @Patch(':id/status')
   @UseGuards(RolesGuard)
-  @Roles(UserRole.ADMIN)
+  @Roles(UserRole.admin)
   updateStatus(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateEnrollmentDto: UpdateEnrollmentDto,
@@ -63,7 +63,7 @@ export class EnrollmentsController {
 
   @Delete('drop/:courseId')
   @UseGuards(RolesGuard)
-  @Roles(UserRole.STUDENT)
+  @Roles(UserRole.student)
   drop(@Param('courseId', ParseIntPipe) courseId: number, @Request() req) {
     return this.enrollmentsService.drop(courseId, req.user);
   }

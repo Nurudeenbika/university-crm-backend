@@ -29,7 +29,7 @@ export class AssignmentsController {
 
   @Post()
   @UseGuards(RolesGuard)
-  @Roles(UserRole.STUDENT)
+  @Roles(UserRole.student)
   create(@Body() createAssignmentDto: CreateAssignmentDto, @Request() req) {
     return this.assignmentsService.create(createAssignmentDto, req.user);
   }
@@ -49,7 +49,7 @@ export class AssignmentsController {
 
   @Patch(':id/grade')
   @UseGuards(RolesGuard)
-  @Roles(UserRole.LECTURER, UserRole.ADMIN)
+  @Roles(UserRole.lecturer, UserRole.admin)
   grade(
     @Param('id', ParseIntPipe) id: number,
     @Body() gradeAssignmentDto: GradeAssignmentDto,
@@ -60,7 +60,7 @@ export class AssignmentsController {
 
   @Post(':id/upload')
   @UseGuards(RolesGuard)
-  @Roles(UserRole.STUDENT)
+  @Roles(UserRole.student)
   @UseInterceptors(FileInterceptor('file'))
   @ApiConsumes('multipart/form-data')
   uploadFile(

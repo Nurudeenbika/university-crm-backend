@@ -47,11 +47,11 @@ export class DocumentsService {
   async findAll(user: User): Promise<DocumentResponseDto[]> {
     let documents: Document[];
 
-    if (user.role === UserRole.ADMIN) {
+    if (user.role === UserRole.admin) {
       documents = await this.documentsRepository.find({
         relations: ['uploadedBy', 'course'],
       });
-    } else if (user.role === UserRole.LECTURER) {
+    } else if (user.role === UserRole.lecturer) {
       documents = await this.documentsRepository.find({
         relations: ['uploadedBy', 'course'],
         where: [{ uploadedById: user.id }, { course: { lecturerId: user.id } }],
@@ -78,7 +78,7 @@ export class DocumentsService {
 
     // Check access permissions
     if (
-      user.role !== UserRole.ADMIN &&
+      user.role !== UserRole.admin &&
       document.uploadedById !== user.id &&
       document.course?.lecturerId !== user.id
     ) {
@@ -122,7 +122,7 @@ export class DocumentsService {
     }
 
     // Check permissions
-    if (user.role !== UserRole.ADMIN && document.uploadedById !== user.id) {
+    if (user.role !== UserRole.admin && document.uploadedById !== user.id) {
       throw new BadRequestException('Access denied');
     }
 

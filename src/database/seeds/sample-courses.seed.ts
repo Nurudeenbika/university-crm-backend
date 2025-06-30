@@ -16,7 +16,7 @@ export async function seedSampleCourses(dataSource: DataSource): Promise<void> {
 
   // Get lecturer
   const lecturer = await userRepository.findOne({
-    where: { role: UserRole.LECTURER as unknown as User['role'] },
+    where: { role: UserRole.lecturer as unknown as User['role'] },
   });
 
   if (!lecturer) {

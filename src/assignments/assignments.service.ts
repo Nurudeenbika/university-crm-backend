@@ -66,13 +66,13 @@ export class AssignmentsService {
     const course = await this.coursesService.findOne(courseId);
 
     // Check access permissions
-    if (user.role === UserRole.STUDENT) {
+    if (user.role === UserRole.student) {
       return this.assignmentsRepository.find({
         where: { courseId, studentId: user.id },
         relations: ['course'],
       });
     } else if (
-      user.role === UserRole.LECTURER &&
+      user.role === UserRole.lecturer &&
       course.lecturerId !== user.id
     ) {
       throw new ForbiddenException(
@@ -108,7 +108,7 @@ export class AssignmentsService {
 
     const course = await assignment.course;
 
-    if (user.role !== UserRole.ADMIN && course.lecturerId !== user.id) {
+    if (user.role !== UserRole.admin && course.lecturerId !== user.id) {
       throw new ForbiddenException(
         'You can only grade assignments for your courses',
       );
@@ -179,7 +179,7 @@ export class AssignmentsService {
           status: enrollment.status,
           finalGrade,
         },
-        { role: UserRole.ADMIN } as User,
+        { role: UserRole.admin } as User,
       );
     }
   }
